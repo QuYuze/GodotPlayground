@@ -34,6 +34,6 @@ curve = SubResource("Curve2D_ig7tw")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=2115123441]
 
 [connection signal="Hit" from="Player" to="." method="GameOver"]
-[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeOut"]
 [connection signal="timeout" from="StartTimer" to="." method="onStartTimerTimeOut"]
