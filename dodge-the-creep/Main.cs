@@ -14,10 +14,16 @@ public partial class Main : Node
 	{
 		GetNode<Timer>("MobTimer").Stop();
 		GetNode<Timer>("ScoreTimer").Stop();
+
+		GetNode<AudioStreamPlayer>("Music").Stop();
+		GetNode<AudioStreamPlayer>("DeathSound").Play();
+		GetNode<Hud>("HUD").ShowGameOver();
+		
 	}
 
 	public void NewGame()
 	{
+		GetTree().CallGroup("mobs", Node.MethodName.QueueFree);
 		_score = 0;
 		var player = GetNode<Player>("Player");
 		var startPosition = GetNode<Marker2D>("StartPosition");
@@ -25,11 +31,17 @@ public partial class Main : Node
 
 		GetNode<Timer>("StartTimer").Start();
 
+		var hud = GetNode<Hud>("HUD");
+		hud.UpdateScore(_score);
+		hud.ShowMessage("Get Ready!");
+		GetNode<AudioStreamPlayer>("Music").Play();
+
 	}
 
 	private void OnScoreTimerTimeOut()
 	{
 		_score++;
+		GetNode<Hud>("HUD").UpdateScore(_score);
 	}
 
 	private void onStartTimerTimeOut()
